@@ -1,0 +1,37 @@
+# R
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# R session / output
+*.Rout
+Rplots.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Data and large intermediates (not redistributed)
+data/
+new/results/
+output/
+*.rda
+*.rds
+*.RDS
+*.tar
+*.tar.gz
+*.gz
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Secrets
+.env
+*.key
+*.pem
