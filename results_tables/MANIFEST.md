@@ -53,6 +53,7 @@ they are available from the authors on request.
 | `E2_complete_score_point_reproduction_check.csv` | Point Spearman of ten scoring rules vs test RMSE | `revision_analysis/score_external_analysis.R` | Score ablation |
 | `E2_complete_score_joint_bootstrap_summary.csv` | Joint train/calibration/test resampling intervals | `revision_analysis/uncertainty_completion.R` | Score ablation intervals |
 | `E2_complete_sample_bootstrap_summary.csv` | Sample-level score components with intervals | `revision_analysis/uncertainty_completion.R` | Reviewer 1 sample-level point |
+| `E2_per_miRNA_reliability_test_error.csv` | Per-miRNA reliability score, calibration-set R²/Pearson/RMSE and test RMSE on the training-SD scale (846 rows) | derived from the E0 canonical input | Figure 4 panel (a); Spearman = −0.5978 |
 | `E2_Rel_threshold_coverage_FNR_point.csv` | Precision, recall, FNR and coverage over thresholds 0.10-0.90 | `revision_analysis/score_external_analysis.R` | Reviewer 3 false-negative question |
 | `E2_FNR_bootstrap_summary.csv` | Bootstrap intervals for FNR | `revision_analysis/uncertainty_completion.R` | Threshold cost |
 | `E2_FNR_label_sensitivity_point.csv` | Alternative operational-label definitions | `revision_analysis/score_external_analysis.R` | Label sensitivity |
@@ -70,6 +71,7 @@ they are available from the authors on request.
 | `E3_downstream_by_split.csv` | Per-split values for Rel, Pearson, calibration-RMSE and OOF-RMSE subsets | derived from per-split evaluations | Control consistency over splits |
 | `E3_random_mean_by_split.csv` | Per-split random-list means | derived from per-split evaluations | Control consistency over splits |
 | `E3_random_subset_distribution_summary.csv` | Fixed-split random-subset distribution summary (1,000 lists per size) | derived from `E3_random_subset_distribution.csv` | Same-size control requirement |
+| `E3_random_subset_metrics_slim.csv` | The 1,000 random lists per size with the two core metrics (within-patient correlation and correlation-matrix mean absolute difference; 3,000 rows) | derived from `E3_random_subset_distribution.csv` | Figure 8 panels (b) and (c) |
 | `README_E3.md` | Section notes | — | — |
 
 ## E4 — external transfer (CHOL and eight cohorts)
@@ -97,6 +99,7 @@ they are available from the authors on request.
 | `E5_host_gene_candidates.csv` | Candidate host relationships (765 rows, 724 miRNAs) | `revision_analysis/biological_annotation.R` | Host-gene analysis |
 | `E5_host_expression_stratified_label_permutation.csv` | Stratified label-permutation test of host co-expression | `revision_analysis/biological_annotation.R` | Biological-null result |
 | `E5_host_expression_associations_model_inputs_only.csv` | Host associations within the model input range | `revision_analysis/biological_annotation.R` | Non-detection within input range |
+| `E5_host_expression_associations_all_mRNA.csv` | Host associations across all 18,204 mRNAs (435 pairs, 433 miRNAs) | `revision_analysis/biological_annotation.R` | Figure 10 panels (c) and (d); host co-expression test |
 | `E5_threemodel_survival_comparison.csv` | Three-model prognostic comparison with B=2000 intervals | `revision_analysis/incremental_prognosis_comparison.R` | Reviewer 4 independent-information point |
 | `E5_threemodel_run_metadata.csv` | Selected lambdas, active features and event counts | `revision_analysis/incremental_prognosis_comparison.R` | Provenance |
 | `E5/PREREGISTRATION_threemodel_comparison.md` | Frozen design and pre-run amendments | — | Defensive record |

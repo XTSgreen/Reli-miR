@@ -16,7 +16,7 @@ an eight-cohort external transfer analysis, and a three-model prognostic compari
 | `main_pipeline/` | Submitted pipeline: the full sequential analysis script `StrongMiRRecon_v2.R`, external generalization, PCA_ElasticNet and Pathway_Ridge reruns, GPU (PyTorch) MLP/Transformer comparators |
 | `revision_analysis/` | Revision analyses: canonical input build, 20-split repeated training and evaluation, downstream preservation and paired comparison, score ablation and external scoring, uncertainty completion (bootstrap), shuffled negative control, biological annotation, three-model prognostic comparison, multi-cohort aggregation |
 | `external_data/` | Public-source provenance verification (GDC/Xena), harmonized CHOL input construction, seven-cohort TCGA input construction, cohort identification, and GDC miRNA bulk-download helper scripts |
-| `figures/` | Shared style helper and per-figure generation scripts (E1 stability, E2 score ablation and coverage, E3 equal-size controls, E4 transfer and multi-cohort, E5 expression associations) |
+| `figures/` | Shared style helper and per-figure generation scripts. Three of them regenerate the revised main-text figures 4, 8 and 10 (calibration and thresholds; downstream preservation with equal-size controls; identity and expression features) directly from `results_tables/`; the remainder target the fixed-split and multi-cohort panels that require the full analysis outputs |
 | `results_tables/` | Curated result tables behind every reported number, with per-table provenance in `results_tables/MANIFEST.md`. Raw intermediate outputs and the two multi-megabyte frequency tables are not redistributed |
 | `verification/` | Single verification entry point `verify_all.R`, which recomputes every published statistic from `results_tables/` and exits with a non-zero status if any check fails |
 | `environment/` | `sessionInfo` and run-environment records (R version and package versions) |
@@ -138,6 +138,32 @@ file for every check, and reports a PASS/FAIL count. It exits with status 0 when
 and status 1 when any check fails, so it can be used as a CI gate. `results_tables/MANIFEST.md`
 maps each table to the analysis script that produced it and to the manuscript or response-letter
 claim it supports.
+
+## Regenerating the manuscript figures
+
+Three scripts regenerate the revised main-text figures from the published tables alone:
+
+```
+RELI_TABLES_ROOT=results_tables Rscript figures/gen_fig_E2_calibration_thresholds.R   # figure 4
+RELI_TABLES_ROOT=results_tables Rscript figures/gen_fig_downstream_expanded.R         # figure 8
+RELI_TABLES_ROOT=results_tables Rscript figures/gen_fig_E5_identity_features.R        # figure 10
+```
+
+On Windows PowerShell use `$env:RELI_TABLES_ROOT='results_tables'` before the calls. The scripts
+also accept the repository's working layout, where the style helper and outputs live under
+`new/code/` and `new/figures/`; `RELI_TABLES_ROOT` defaults to `results_tables`. Each run prints
+the values it recomputes, so the figure content can be compared against the manuscript:
+
+| Script | Reported check |
+|---|---|
+| `gen_fig_E2_calibration_thresholds.R` | Spearman(Rel, test RMSE) = −0.5977976, matching the −0.5978 in the text |
+| `gen_fig_downstream_expanded.R` | threshold fidelity panel and the 20-split amplitude means (0.5142 / 0.4536 / 0.3661 and 0.5800 / 0.5196 / 0.4168) |
+| `gen_fig_E5_identity_features.R` | stratified label-permutation difference 0.0270870 and p = 0.647135, matching the published values |
+
+The remaining figure scripts (`gen_fig_E1_repeated.R`, `gen_fig_E2_scores.R`,
+`gen_fig_E2_coverage.R`, `gen_fig_E3_controls.R`, `gen_fig_E4_transfer.R`,
+`gen_fig_E4_multicohort.R`, `gen_fig_E5_expression.R`) read the per-split evaluation outputs under
+`new/results/` and therefore require the full analysis run, not just the published tables.
 
 ## Frozen analysis parameters
 
