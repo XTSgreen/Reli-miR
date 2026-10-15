@@ -1,0 +1,2 @@
+n_patients,n_overlap_miRNA,external_gene_coverage,selected_model,model_source,external_input,clinical_survival
+35,742,1,PCA_ElasticNet,output/models/PCA_ElasticNet_model.rds,new/results/E4_harmonized_inputs/external_CHOL_matched_RSEM.rda,not assessed; expression-only external evaluation

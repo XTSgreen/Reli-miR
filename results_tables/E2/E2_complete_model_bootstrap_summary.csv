@@ -1,0 +1,10 @@
+model,B_valid,bootstrap_median,CI_q025,CI_q975,point_estimate,metric,bootstrap_scope
+ElasticNet,2000,0.17956006522346782,0.13270030628146207,0.2084485805854897,0.2014208507317412,mean_R2,paired patient bootstrap; fixed fitted models; conditional on canonical E0 split
+PCA_ElasticNet,2000,0.17211840719264154,0.11274160967503137,0.20312124223894049,0.19561937794945036,mean_R2,paired patient bootstrap; fixed fitted models; conditional on canonical E0 split
+PCA_Ridge,2000,0.17141740420442064,0.11436891051414531,0.20245639281834754,0.1939054977451713,mean_R2,paired patient bootstrap; fixed fitted models; conditional on canonical E0 split
+ElasticNet,2000,0.45562983701461857,0.4110749961322441,0.4981716430242251,0.44982221235960074,median_Pearson,paired patient bootstrap; fixed fitted models; conditional on canonical E0 split
+PCA_ElasticNet,2000,0.4530727486427367,0.40680602031770774,0.49532509171898276,0.4442492013802531,median_Pearson,paired patient bootstrap; fixed fitted models; conditional on canonical E0 split
+PCA_Ridge,2000,0.45073538634316934,0.40417892674245637,0.4934571802768288,0.4410253976783658,median_Pearson,paired patient bootstrap; fixed fitted models; conditional on canonical E0 split
+ElasticNet,2000,0.8663315152636296,0.8112955563128527,0.9258780082217501,0.876044106315093,mean_RMSE,paired patient bootstrap; fixed fitted models; conditional on canonical E0 split
+PCA_ElasticNet,2000,0.8659089274883238,0.8088235829226661,0.9291041582109586,0.8759884463040615,mean_RMSE,paired patient bootstrap; fixed fitted models; conditional on canonical E0 split
+PCA_Ridge,2000,0.8674202839140683,0.8099516893601535,0.9313511968436613,0.8774922888000134,mean_RMSE,paired patient bootstrap; fixed fitted models; conditional on canonical E0 split

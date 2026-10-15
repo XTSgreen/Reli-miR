@@ -1,0 +1,2 @@
+n_overlap_miRNA,R2_valid_n,Pearson_valid_n,RMSE_valid_n,mean_R2,median_R2,mean_Pearson,median_Pearson,mean_RMSE,median_RMSE,reconstructable_n
+742,742,742,742,-0.3060348043187014,-0.07596468123896993,0.27624774777618144,0.2892197481198542,0.8517106110328441,0.8394481496841013,92

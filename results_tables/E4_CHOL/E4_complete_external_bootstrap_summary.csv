@@ -1,0 +1,10 @@
+metric,point_estimate,bootstrap_median,CI_q025,CI_q975,B_valid,B_requested,bootstrap_scope
+mean_R2,-0.3060348043187014,-0.4302711029457802,-0.7009618598450931,-0.2792199219511435,2000,2000,paired 35-patient bootstrap; fixed PCA_ElasticNet and fixed internal Rel
+median_R2,-0.07596468123896993,-0.12436009083255639,-0.23206955156715872,-0.05587704028438475,2000,2000,paired 35-patient bootstrap; fixed PCA_ElasticNet and fixed internal Rel
+mean_Pearson,0.27624774777618144,0.2700307918580014,0.2029143205339859,0.32186907744677046,2000,2000,paired 35-patient bootstrap; fixed PCA_ElasticNet and fixed internal Rel
+median_Pearson,0.28921974811985424,0.2853771593994594,0.2107079007790933,0.35312567302148146,2000,2000,paired 35-patient bootstrap; fixed PCA_ElasticNet and fixed internal Rel
+mean_RMSE,0.8517106110328441,0.8434218121594493,0.803611434786419,0.8825610785074165,2000,2000,paired 35-patient bootstrap; fixed PCA_ElasticNet and fixed internal Rel
+median_RMSE,0.8394481496841013,0.8120765021656651,0.7703654729384287,0.8509844747010502,2000,2000,paired 35-patient bootstrap; fixed PCA_ElasticNet and fixed internal Rel
+rho_internal_Rel_vs_RMSE,-0.2341759999105985,-0.21383612521645157,-0.30999466139084125,-0.12275362784113163,2000,2000,paired 35-patient bootstrap; fixed PCA_ElasticNet and fixed internal Rel
+rho_internal_Rel_vs_R2,0.06038303271891979,0.04934846908896057,-0.037707651434633636,0.13904211469139852,2000,2000,paired 35-patient bootstrap; fixed PCA_ElasticNet and fixed internal Rel
+rho_internal_Rel_vs_Pearson,0.3663584398610333,0.30695296402496036,0.22437079249096664,0.38148647520420964,2000,2000,paired 35-patient bootstrap; fixed PCA_ElasticNet and fixed internal Rel

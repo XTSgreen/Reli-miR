@@ -17,7 +17,8 @@ an eight-cohort external transfer analysis, and a three-model prognostic compari
 | `revision_analysis/` | Revision analyses: canonical input build, 20-split repeated training and evaluation, downstream preservation and paired comparison, score ablation and external scoring, uncertainty completion (bootstrap), shuffled negative control, biological annotation, three-model prognostic comparison, multi-cohort aggregation |
 | `external_data/` | Public-source provenance verification (GDC/Xena), harmonized CHOL input construction, seven-cohort TCGA input construction, cohort identification, and GDC miRNA bulk-download helper scripts |
 | `figures/` | Shared style helper and per-figure generation scripts (E1 stability, E2 score ablation and coverage, E3 equal-size controls, E4 transfer and multi-cohort, E5 expression associations) |
-| `verification/` | Scripts that recompute the reported revision statistics directly from result tables, used to check every number quoted in the response letter |
+| `results_tables/` | Curated result tables behind every reported number, with per-table provenance in `results_tables/MANIFEST.md`. Raw intermediate outputs and the two multi-megabyte frequency tables are not redistributed |
+| `verification/` | Single verification entry point `verify_all.R`, which recomputes every published statistic from `results_tables/` and exits with a non-zero status if any check fails |
 | `environment/` | `sessionInfo` and run-environment records (R version and package versions) |
 
 ## Requirements
@@ -43,8 +44,10 @@ cohorts are TCGA-CHOL (35) and seven additional TCGA solid-tumour cohorts. **Raw
 redistributed here.** They are publicly available from the GDC Data Portal and the UCSC Xena
 public hub; `external_data/` contains the retrieval and harmonisation scripts. One-step
 cross-comparison of the local matrices against the official Xena HiSeqV2 release is provided in
-`public_compare_xena_hiseqv2_366.R` (366 x 18,204 cells identical) and the verified ASA units are
-documented in the manuscript.
+`public_compare_xena_hiseqv2_366.R` (366 x 18,204 cells identical) and the verified expression units
+are documented in the manuscript. The curated tables behind every reported number are published
+under `results_tables/`, with provenance in `results_tables/MANIFEST.md`; raw result intermediates
+are not redistributed.
 
 ## How to run
 
@@ -56,39 +59,85 @@ everything from the repository root:
 repo/
   data/data.rda
   code/            <- files from OA/main_pipeline
-  new/code/        <- files from OA/revision_analysis, external_data, figures, verification
+  new/code/        <- files from OA/revision_analysis, external_data, figures
   new/results/     <- outputs (created automatically)
+  results_tables/  <- files from OA/results_tables
+  verification/    <- files from OA/verification (reads results_tables/)
 ```
 
 Main pipeline:
 
 ```
 Rscript code/StrongMiRRecon_v2.R
+Rscript code/export_gpu_model_inputs.R                # model input matrices for the GPU comparators
 Rscript code/run_external_generalization.R --project-dir . --external-data <cohort>.rda
 ```
 
-Revision pipeline (order matters; long-running steps can be checkpointed and restarted safely):
+Revision pipeline. Steps must be run in this order from the repository root; the long-running
+training and evaluation steps are checkpointed and can be restarted safely. `code/export_gpu_model_inputs.R`
+records the model input matrices that the frozen analysis builds on, so it runs before the E0 step.
 
 ```
-Rscript new/code/prepare_canonical.R                  # E0 canonical fixed-split input
-Rscript new/code/data_description.R                   # E0 descriptive tables
-Rscript new/code/repeated_training.R all              # E1  20 patient-level splits
-Rscript new/code/repeated_evaluation.R watch          # E1  per-split evaluation, auto-resumes
+# Stage 0 - model inputs exported by the submitted pipeline
+Rscript code/export_gpu_model_inputs.R
+
+# Stage 1 - E0 foundation
+Rscript new/code/prepare_canonical.R                  # canonical fixed-split input
+Rscript new/code/data_description.R                   # descriptive tables
+
+# Stage 2 - E1 repeated protocol
+Rscript new/code/repeated_training.R all              # 20 patient-level splits
+Rscript new/code/repeated_evaluation.R watch          # per-split evaluation, auto-resumes
 Rscript new/code/shuffled_baseline.R all              # 20 training-pairing permutations
-Rscript new/code/downstream_analysis.R <canonical.rds> new/results/E3   # E3 fixed split
+
+# Stage 3 - fixed-split E2 and E3
+Rscript new/code/downstream_analysis.R <canonical.rds> new/results/E3
 Rscript new/code/score_external_analysis.R --canonical <canonical.rds> --section E2 --bootstrap 2000 --output-root new/results
 Rscript new/code/uncertainty_completion.R --bootstrap 2000 --section models
 Rscript new/code/uncertainty_completion.R --bootstrap 2000 --section scores
 Rscript new/code/uncertainty_completion.R --bootstrap 2000 --section sample
-Rscript new/code/build_chol_harmonized_input.R        # external input, same RSEM pipeline
+
+# Stage 4 - E4 external cohorts
+Rscript new/code/build_chol_harmonized_input.R        # same-RSEM CHOL input
+Rscript new/code/verify_chol_harmonized_input.R       # input validation
 Rscript new/code/score_external_analysis.R --section E4 --bootstrap 2000 --external-input <chol.rda> --output-root new/results/harmonized
-Rscript new/code/build_multicohort_inputs.R           # 7 additional TCGA cohorts
-Rscript new/code/run_multicohort_e4.ps1               # per-cohort transfer evaluation
-Rscript new/code/summarize_multicohort_e4.R           # 8-cohort summary
+Rscript new/code/uncertainty_completion.R --section external --bootstrap 2000 --external-input <chol.rda> --output-root new/results/harmonized
+powershell -ExecutionPolicy Bypass -File new/code/fetch_gdc_mirna_manifests.ps1   # GDC miRNA file manifests
+powershell -ExecutionPolicy Bypass -File new/code/download_gdc_mirna.ps1          # bulk miRNA quantification download
+Rscript new/code/identify_xena_files.R                # identify each downloaded Xena HiSeqV2 matrix by cohort
+Rscript new/code/match_xena_to_project.R              # confirm the cohort assignment against GDC case lists
+Rscript new/code/build_multicohort_inputs.R           # seven additional TCGA cohort inputs
+powershell -ExecutionPolicy Bypass -File new/code/run_multicohort_e4.ps1          # per-cohort transfer evaluation
+Rscript new/code/summarize_multicohort_e4.R           # eight-cohort summary
+
+# Stage 5 - E5
 Rscript new/code/incremental_prognosis_comparison.R   # three-model prognostic comparison
-Rscript new/code/biological_annotation.R              # E5 identity and host analysis
+Rscript new/code/biological_annotation.R              # identity and host analysis
+
+# Figures
 Rscript new/code/gen_fig_*.R                          # figure PDF/PNG
+
+# Verification of the published numbers
+Rscript verification/verify_all.R
 ```
+
+Two notes on Stage 4. The three `.ps1` helpers are PowerShell scripts and must be invoked through
+`powershell -ExecutionPolicy Bypass -File`; they are Windows-specific. The Xena HiSeqV2 matrices
+themselves are not fetched by these scripts and must be downloaded beforehand from the UCSC Xena
+public hub; `identify_xena_files.R` then resolves which cohort each local file belongs to.
+
+## Verifying the published numbers
+
+```
+Rscript verification/verify_all.R                 # verifies against results_tables/
+Rscript verification/verify_all.R <tables-root>   # alternative location
+```
+
+The script recomputes 72 published statistics directly from `results_tables/`, prints the source
+file for every check, and reports a PASS/FAIL count. It exits with status 0 when all checks pass
+and status 1 when any check fails, so it can be used as a CI gate. `results_tables/MANIFEST.md`
+maps each table to the analysis script that produced it and to the manuscript or response-letter
+claim it supports.
 
 ## Frozen analysis parameters
 

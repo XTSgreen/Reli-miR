@@ -1,0 +1,3 @@
+"selected_model","n_seeds","frequency"
+"ElasticNet",14,0.7
+"PCA_ElasticNet",6,0.3

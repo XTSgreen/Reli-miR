@@ -1,0 +1,50 @@
+{
+  "technical_gate": "passed",
+  "n_train": 222,
+  "n_cal": 72,
+  "n_test": 72,
+  "n_genes": 3000,
+  "n_miRNA": 846,
+  "model": "pca_elasticnet",
+  "k": 200,
+  "alpha": 0.1,
+  "lambda_min": 14.5383,
+  "reliability_test_error_spearman": -0.5978,
+  "thresholds": [
+    {
+      "threshold": 0.5,
+      "retained": 177,
+      "total": 846,
+      "coverage": 0.2092
+    },
+    {
+      "threshold": 0.6,
+      "retained": 74,
+      "total": 846,
+      "coverage": 0.0875
+    },
+    {
+      "threshold": 0.7,
+      "retained": 33,
+      "total": 846,
+      "coverage": 0.039
+    }
+  ],
+  "original_score_columns": [
+    "miRNA",
+    "R2",
+    "Pearson",
+    "RMSE",
+    "miRNA_level_reliability",
+    "validation_prediction_error"
+  ],
+  "remaining_metadata": ["original project download date and preprocessing scripts unavailable; miRNA transformation supported by five cases but all-case file versions not recovered", "original reliability thresholds not proven prospectively fixed"],
+  "verified_metadata": {
+    "data_source_status": "GDC case projects verified: LIHC 366, CHOL 35; primary mRNA all 6662664 cells equal official Xena HiSeqV2",
+    "expression_unit": "mRNA log2(norm_count+1), RSEM normalized counts; miRNA log2(RPM+1) supported by five GDC case files",
+    "mRNA_source": "https://tcga.xenahubs.net/download/TCGA.LIHC.sampleMap/HiSeqV2.gz",
+    "mRNA_metadata_version": "2017-10-13",
+    "OS_time_unit": "days; all 366 values exactly match GDC death or last-follow-up days",
+    "provenance_evidence": "new/results/E0/public_provenance_search.md"
+  }
+}

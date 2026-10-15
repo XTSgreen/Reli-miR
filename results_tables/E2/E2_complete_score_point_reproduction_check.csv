@@ -1,0 +1,11 @@
+score,point_rho_vs_test_RMSE,point_rho_baseline_minus_Rel,contrast_direction,score_estimation,existing_rho,abs_point_delta
+Rel_equal,-0.5977976326696987,0,baseline rho minus Rel rho; positive supports stronger negative Rel association,calibration and training summaries on fixed canonical samples,-0.5977976326696987,0
+R2_raw,-0.5916773798041467,0.006120252865551956,baseline rho minus Rel rho; positive supports stronger negative Rel association,calibration and training summaries on fixed canonical samples,-0.5916773798041467,0
+R2_clipped,-0.5927857026544403,0.005011930015258348,baseline rho minus Rel rho; positive supports stronger negative Rel association,calibration and training summaries on fixed canonical samples,-0.5927857026544403,0
+Pearson,-0.5916131678667016,0.006184464802997058,baseline rho minus Rel rho; positive supports stronger negative Rel association,calibration and training summaries on fixed canonical samples,-0.5916131678667016,0
+Pearson_clipped,-0.5917305492133337,0.0060670834563649745,baseline rho minus Rel rho; positive supports stronger negative Rel association,calibration and training summaries on fixed canonical samples,-0.5917305492133337,0
+Rel_R2_weight_025,-0.5949549841824651,0.00284264848723359,baseline rho minus Rel rho; positive supports stronger negative Rel association,calibration and training summaries on fixed canonical samples,-0.5949549841824651,0
+Rel_R2_weight_075,-0.599547084399172,-0.0017494517294733836,baseline rho minus Rel rho; positive supports stronger negative Rel association,calibration and training summaries on fixed canonical samples,-0.599547084399172,0
+Calibration_RMSE_rank,-0.574200971374011,0.023596661295687604,baseline rho minus Rel rho; positive supports stronger negative Rel association,calibration and training summaries on fixed canonical samples,-0.574200971374011,0
+Training_native_mean,-0.5414908951585041,0.05630673751119453,baseline rho minus Rel rho; positive supports stronger negative Rel association,calibration and training summaries on fixed canonical samples,-0.5414908951585041,0
+Training_native_variance,-0.6583736255808864,-0.06057599291118776,baseline rho minus Rel rho; positive supports stronger negative Rel association,calibration and training summaries on fixed canonical samples,-0.6583736255808864,0

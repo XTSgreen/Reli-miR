@@ -1,0 +1,7 @@
+score,point_rho_vs_actual_RMSE,bootstrap_median_rho,CI_q025,CI_q975,n_effective,B_valid,B_requested,bootstrap_scope
+agreement_score,0.03527558042317834,0.03153256761434407,-0.22038196843172,0.2831064689369972,72,2000,2000,paired resampling of 72 test patients; fixed sample-level score and canonical PCA_ElasticNet error
+distance_score,-0.3748472570583317,-0.37119640386129205,-0.5762773080010292,-0.1414498015079948,72,2000,2000,paired resampling of 72 test patients; fixed sample-level score and canonical PCA_ElasticNet error
+legacy_saved_disagreement,-0.03527558042317834,-0.03664139161589973,-0.2949213064436643,0.22805514414719655,72,2000,2000,paired resampling of 72 test patients; fixed sample-level score and canonical PCA_ElasticNet error
+legacy_saved_reliability,-0.11926812013634319,-0.12151005639002692,-0.36254527343797666,0.13286660431264535,72,2000,2000,paired resampling of 72 test patients; fixed sample-level score and canonical PCA_ElasticNet error
+model_disagreement,-0.03527558042317834,-0.025214424361374076,-0.28294512585836623,0.2235842600408843,72,2000,2000,paired resampling of 72 test patients; fixed sample-level score and canonical PCA_ElasticNet error
+sample_level_reliability,-0.11926812013634319,-0.11252151680040473,-0.3603996001038001,0.14690630940884847,72,2000,2000,paired resampling of 72 test patients; fixed sample-level score and canonical PCA_ElasticNet error

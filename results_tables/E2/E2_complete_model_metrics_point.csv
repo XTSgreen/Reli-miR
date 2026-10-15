@@ -1,0 +1,4 @@
+model,mean_R2,median_Pearson,mean_RMSE,n_R2,n_Pearson,n_RMSE,bootstrap_scope
+ElasticNet,0.2014208507317412,0.44982221235960074,0.876044106315093,846,846,846,fixed fitted model; conditional on canonical E0 split
+PCA_ElasticNet,0.19561937794945036,0.4442492013802531,0.8759884463040615,846,846,846,fixed fitted model; conditional on canonical E0 split
+PCA_Ridge,0.1939054977451713,0.4410253976783658,0.8774922888000134,846,846,846,fixed fitted model; conditional on canonical E0 split

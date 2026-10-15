@@ -1,0 +1,3 @@
+"cohort","n_patients","n_genes_xena","gene_coverage_3000","n_mirna_external","n_overlap_internal_846","mirna_value_min","mirna_value_max","mrna_value_min","mrna_value_max"
+"THCA",504,20530,1,1881,846,0,19.2339956189558,0,21.7599
+"HNSC",515,20530,1,1881,846,0,19.5849161373573,0,21.8754
